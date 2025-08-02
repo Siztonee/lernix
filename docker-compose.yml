@@ -1,0 +1,91 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: lernix-db
+    environment:
+      POSTGRES_DB: lernix
+      POSTGRES_USER: lernix
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  backend:
+    build:
+      context: .  # Изменено на корень проекта
+      dockerfile: docker/php/Dockerfile  # Относительный путь от контекста
+    container_name: lernix-backend
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_DATABASE: lernix
+      DB_USERNAME: lernix
+      DB_PASSWORD: secret
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.7'
+          memory: 768M
+
+  webserver:
+    image: nginx:1.25-alpine
+    container_name: lernix-webserver
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 256M
+
+  frontend:
+    image: node:20.19.0-alpine  # Используем конкретную совместимую версию
+    container_name: lernix-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev"
+    environment:
+      NODE_ENV: development
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  ai:
+    build:
+      context: ./ai-service  # Контекст - директория с кодом
+      dockerfile: Dockerfile  # Dockerfile находится в той же директории
+    container_name: lernix-ai
+    volumes:
+      - ./ai-service:/app
+    ports:
+      - "8000:8000"
+    environment:
+      PYTHONUNBUFFERED: 1
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 512M
+
+volumes:
+  pgdata:
