@@ -12,17 +12,16 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  icon: Object,
+  icon: Object,  
   title: String,
   description: String
 })
 
+const iconGradients = new Map([
+  [props.icon, 'bg-gradient-to-br from-primary-purple to-primary-green'], 
+])
+
 const iconBgClass = computed(() => {
-  const icons = {
-    LightningBoltIcon: 'bg-gradient-to-br from-primary-purple to-primary-green',
-    ChartBarIcon: 'bg-gradient-to-br from-cyan-500 to-blue-600',
-    DeviceMobileIcon: 'bg-gradient-to-br from-amber-500 to-orange-500'
-  }
-  return icons[props.icon.name] || 'bg-gradient-to-br from-primary-purple to-primary-green'
+  return iconGradients.get(props.icon) || 'bg-gradient-to-br from-primary-purple to-primary-green'
 })
 </script>

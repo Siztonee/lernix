@@ -45,17 +45,17 @@
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <FeatureCard 
-            icon="LightningBoltIcon"
+            :icon="BoltIcon"
             title="Экономия времени"
             description="Автоматизация рутинных задач для преподавателей и администрации"
           />
           <FeatureCard 
-            icon="ChartBarIcon"
+            :icon="ChartBarIcon"
             title="Аналитика в реальном времени"
             description="Мгновенный доступ к статистике и отчетам для принятия решений"
           />
           <FeatureCard 
-            icon="DeviceMobileIcon"
+            :icon="DevicePhoneMobileIcon"
             title="Полная мобильность"
             description="Доступ ко всем функциям с любого устройства в любое время"
           />
@@ -71,7 +71,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <UserCard 
             role="Студенты"
-            icon="AcademicCapIcon"
+            :icon="AcademicCapIcon"
             :features="[
               'Расписание занятий',
               'Электронная зачетка',
@@ -84,7 +84,7 @@
           
           <UserCard 
             role="Преподаватели"
-            icon="UserGroupIcon"
+            :icon="UserGroupIcon"
             :features="[
               'Система оценивания',
               'Отметка посещаемости',
@@ -98,7 +98,7 @@
           
           <UserCard 
             role="Администрация"
-            icon="BriefcaseIcon"
+            :icon="BriefcaseIcon"
             :features="[
               'Централизованное управление',
               'Статистика по факультетам',
@@ -170,5 +170,5 @@
 </template>
 
 <script setup>
-import { AcademicCapIcon, BriefcaseIcon, UserGroupIcon, LightningBoltIcon, ChartBarIcon, DeviceMobileIcon } from '@heroicons/vue/outline'
+import { AcademicCapIcon, BriefcaseIcon, UserGroupIcon, BoltIcon, ChartBarIcon, DevicePhoneMobileIcon } from '@heroicons/vue/24/outline'
 </script>

@@ -34,3 +34,12 @@
     </transition>
   </Menu>
 </template>
+
+<script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+
+const closeMenus = () => {
+  isMobileMenuOpen.value = false;
+};
+
+</script>

@@ -23,7 +23,7 @@
 
 <script setup>
 import { computed } from 'vue'
-defineProps({
+const props = defineProps({
   role: String,
   icon: Object,
   features: Array,
