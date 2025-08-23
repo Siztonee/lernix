@@ -8,12 +8,7 @@
     }"
   >
     <div 
-      class="w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors"
-      :class="{
-        'bg-gradient-to-r from-primary-purple to-primary-green': isActive,
-        'bg-dark-700 group-hover:bg-dark-600': !isActive
-      }"
-    >
+      class="w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors bg-dark-700 group-hover:bg-dark-600">
       <component :is="icon" class="w-4 h-4" />
     </div>
     <span class="font-medium">{{ title }}</span>
